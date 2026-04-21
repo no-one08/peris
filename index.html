@@ -21,6 +21,381 @@
             position: relative;
         }
 
+        /* ===== SPONGEBOB GATE SCREEN ===== */
+        #gateScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #4facfe 0%, #00f2fe 30%, #0099cc 60%, #0066aa 100%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        #gateScreen.hidden {
+            opacity: 0;
+            transform: scale(1.2);
+            pointer-events: none;
+        }
+
+        .gate-text {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2em;
+            color: #fff700;
+            text-shadow: 3px 3px 0px #ff6b6b, 6px 6px 0px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+            text-align: center;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .gate-sub {
+            color: #b3e5fc;
+            font-size: 1.1em;
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        /* SpongeBob Character */
+        .spongebob-gate {
+            position: relative;
+            width: 220px;
+            height: 280px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            animation: floatBob 3s ease-in-out infinite;
+        }
+
+        .spongebob-gate:hover {
+            transform: scale(1.05);
+        }
+
+        .spongebob-gate:active {
+            transform: scale(0.95);
+        }
+
+        /* Sponge Body */
+        .sb-body {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, #fff700 0%, #ffec00 50%, #ffd700 100%);
+            border-radius: 15px;
+            position: absolute;
+            top: 0;
+            left: 10px;
+            box-shadow: 
+                inset -10px -10px 20px rgba(0,0,0,0.1),
+                0 10px 30px rgba(0,0,0,0.3);
+            border: 3px solid #b8860b;
+        }
+
+        /* Sponge Pores */
+        .pore {
+            position: absolute;
+            background: rgba(184, 134, 11, 0.3);
+            border-radius: 50%;
+        }
+
+        .pore:nth-child(1) { width: 20px; height: 20px; top: 20px; left: 30px; }
+        .pore:nth-child(2) { width: 15px; height: 15px; top: 50px; left: 150px; }
+        .pore:nth-child(3) { width: 18px; height: 18px; top: 100px; left: 20px; }
+        .pore:nth-child(4) { width: 12px; height: 12px; top: 130px; left: 160px; }
+        .pore:nth-child(5) { width: 22px; height: 22px; top: 160px; left: 80px; }
+
+        /* Eyes */
+        .sb-eye {
+            position: absolute;
+            width: 65px;
+            height: 75px;
+            background: white;
+            border-radius: 50%;
+            border: 3px solid #333;
+            top: 40px;
+            overflow: hidden;
+        }
+
+        .sb-eye.left { left: 35px; }
+        .sb-eye.right { right: 35px; }
+
+        .sb-pupil {
+            position: absolute;
+            width: 25px;
+            height: 30px;
+            background: #87ceeb;
+            border-radius: 50%;
+            border: 2px solid #333;
+            top: 25px;
+            left: 20px;
+        }
+
+        .sb-pupil::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 15px;
+            background: black;
+            border-radius: 50%;
+            top: 7px;
+            left: 6px;
+        }
+
+        .sb-pupil::before {
+            content: '';
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: white;
+            border-radius: 50%;
+            top: 3px;
+            left: 3px;
+            z-index: 2;
+        }
+
+        /* Eyelashes */
+        .lash {
+            position: absolute;
+            width: 3px;
+            height: 12px;
+            background: #333;
+            top: -12px;
+            border-radius: 2px;
+        }
+
+        .lash:nth-child(2) { left: 20px; transform: rotate(-15deg); }
+        .lash:nth-child(3) { left: 31px; }
+        .lash:nth-child(4) { left: 42px; transform: rotate(15deg); }
+
+        /* Nose (THE TAP TARGET) */
+        .sb-nose {
+            position: absolute;
+            width: 25px;
+            height: 35px;
+            background: #fff700;
+            border: 3px solid #b8860b;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            top: 95px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .sb-nose::after {
+            content: '👆';
+            position: absolute;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            animation: pointBounce 1s ease-in-out infinite;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+
+        .sb-nose:hover {
+            transform: translateX(-50%) scale(1.2);
+            box-shadow: 0 6px 15px rgba(255, 215, 0, 0.6);
+        }
+
+        .sb-nose.tapped {
+            animation: noseWiggle 0.5s ease-in-out;
+        }
+
+        @keyframes noseWiggle {
+            0%, 100% { transform: translateX(-50%) rotate(0deg); }
+            25% { transform: translateX(-50%) rotate(-15deg) scale(1.3); }
+            75% { transform: translateX(-50%) rotate(15deg) scale(1.3); }
+        }
+
+        @keyframes pointBounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        /* Mouth */
+        .sb-mouth {
+            position: absolute;
+            width: 100px;
+            height: 40px;
+            border: 3px solid #8b0000;
+            border-top: none;
+            border-radius: 0 0 50px 50px;
+            top: 125px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(to bottom, transparent 50%, #ff6b6b 50%);
+        }
+
+        .sb-mouth::before,
+        .sb-mouth::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 12px;
+            background: white;
+            border: 2px solid #8b0000;
+            border-radius: 0 0 4px 4px;
+            top: 20px;
+        }
+
+        .sb-mouth::before { left: 20px; }
+        .sb-mouth::after { right: 20px; }
+
+        /* Cheeks */
+        .sb-cheek {
+            position: absolute;
+            width: 30px;
+            height: 20px;
+            background: rgba(255, 107, 107, 0.4);
+            border-radius: 50%;
+            top: 115px;
+            border: 2px solid rgba(255, 107, 107, 0.3);
+        }
+
+        .sb-cheek.left { left: 15px; }
+        .sb-cheek.right { right: 15px; }
+
+        .freckle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 107, 107, 0.6);
+            border-radius: 50%;
+        }
+
+        /* Pants */
+        .sb-pants {
+            position: absolute;
+            width: 200px;
+            height: 50px;
+            background: linear-gradient(to bottom, #8b4513 0%, #a0522d 100%);
+            bottom: 30px;
+            left: 10px;
+            border: 3px solid #654321;
+            border-top: 4px dashed #333;
+        }
+
+        .sb-belt {
+            position: absolute;
+            width: 100%;
+            height: 10px;
+            top: 5px;
+            display: flex;
+            justify-content: space-around;
+            padding: 0 20px;
+        }
+
+        .belt-line {
+            width: 25px;
+            height: 8px;
+            background: #333;
+            border-radius: 2px;
+        }
+
+        /* Legs */
+        .sb-leg {
+            position: absolute;
+            width: 8px;
+            height: 30px;
+            background: #fff700;
+            border: 2px solid #b8860b;
+            bottom: 0;
+        }
+
+        .sb-leg.left { left: 60px; }
+        .sb-leg.right { right: 60px; }
+
+        .sb-shoe {
+            position: absolute;
+            width: 30px;
+            height: 15px;
+            background: #333;
+            border-radius: 50% 50% 10% 10%;
+            bottom: -5px;
+            left: -11px;
+        }
+
+        /* Arms */
+        .sb-arm {
+            position: absolute;
+            width: 50px;
+            height: 8px;
+            background: #fff700;
+            border: 2px solid #b8860b;
+            top: 140px;
+        }
+
+        .sb-arm.left { 
+            left: -30px; 
+            transform: rotate(-30deg);
+            transform-origin: right center;
+            animation: waveLeft 2s ease-in-out infinite;
+        }
+
+        .sb-arm.right { 
+            right: -30px; 
+            transform: rotate(30deg);
+            transform-origin: left center;
+            animation: waveRight 2s ease-in-out infinite;
+        }
+
+        @keyframes waveLeft {
+            0%, 100% { transform: rotate(-30deg); }
+            50% { transform: rotate(-50deg); }
+        }
+
+        @keyframes waveRight {
+            0%, 100% { transform: rotate(30deg); }
+            50% { transform: rotate(50deg); }
+        }
+
+        .sb-hand {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #fff700;
+            border: 2px solid #b8860b;
+            border-radius: 50%;
+        }
+
+        .sb-arm.left .sb-hand { left: -15px; top: -6px; }
+        .sb-arm.right .sb-hand { right: -15px; top: -6px; }
+
+        @keyframes floatBob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Tap hint */
+        .tap-hint {
+            margin-top: 40px;
+            color: #ffd700;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.3em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        /* ===== MAIN WEBSITE (hidden initially) ===== */
+        #mainContent {
+            opacity: 0;
+            transition: opacity 1s ease-in;
+        }
+
+        #mainContent.visible {
+            opacity: 1;
+        }
+
         /* Floating Bubbles */
         .bubble {
             position: fixed;
@@ -55,7 +430,7 @@
             background: linear-gradient(to bottom, #ff69b4, #ff1493);
             border-radius: 50% 50% 20% 20%;
             position: relative;
-            animation: pulse 2s ease-in-out infinite;
+            animation: pulseJelly 2s ease-in-out infinite;
         }
 
         .jellyfish-tentacle {
@@ -76,7 +451,7 @@
             100% { left: 110vw; top: 25%; }
         }
 
-        @keyframes pulse {
+        @keyframes pulseJelly {
             0%, 100% { transform: scaleY(1); }
             50% { transform: scaleY(0.8); }
         }
@@ -286,15 +661,15 @@
         }
 
         .music-control.playing {
-            animation: pulse-glow 1.5s ease-in-out infinite;
+            animation: pulseGlow 1.5s ease-in-out infinite;
         }
 
-        @keyframes pulse-glow {
+        @keyframes pulseGlow {
             0%, 100% { box-shadow: 0 0 10px rgba(255,215,0,0.5); }
             50% { box-shadow: 0 0 25px rgba(255,215,0,0.8); }
         }
 
-        /* Hidden treasure */
+        /* Treasure section */
         .treasure {
             margin-top: 50px;
             padding: 40px;
@@ -329,6 +704,8 @@
             h1 { font-size: 2.2em; }
             .pineapple { width: 120px; height: 180px; right: 2%; }
             .pineapple-body { width: 110px; height: 140px; }
+            .gate-text { font-size: 1.5em; }
+            .spongebob-gate { transform: scale(0.8); }
         }
 
         /* Sandy ground */
@@ -362,89 +739,224 @@
 </head>
 <body>
 
-    <!-- Audio Player (SpongeBob Theme - you can change the src) -->
+    <!-- Audio Player -->
     <audio id="bgMusic" loop>
-        <!-- Using a copyright-free alternative. Replace with your own MP3 if you have one! -->
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        <source src="song.mp3" type="audio/mpeg">
     </audio>
 
-    <div class="music-control" id="musicBtn" onclick="toggleMusic()">
-        <span id="musicIcon">🎵</span>
-        <span id="musicText">Play Music</span>
+    <!-- ===== GATE SCREEN ===== -->
+    <div id="gateScreen">
+        <div class="gate-text">Hey Peris! 💛</div>
+        <div class="gate-sub">SpongeBob has something special for you...</div>
+        
+        <div class="spongebob-gate" id="spongebobBtn" onclick="enterSite()">
+            <!-- Body -->
+            <div class="sb-body">
+                <div class="pore"></div>
+                <div class="pore"></div>
+                <div class="pore"></div>
+                <div class="pore"></div>
+                <div class="pore"></div>
+                
+                <!-- Left Eye -->
+                <div class="sb-eye left">
+                    <div class="lash"></div>
+                    <div class="lash"></div>
+                    <div class="lash"></div>
+                    <div class="sb-pupil"></div>
+                </div>
+                
+                <!-- Right Eye -->
+                <div class="sb-eye right">
+                    <div class="lash"></div>
+                    <div class="lash"></div>
+                    <div class="lash"></div>
+                    <div class="sb-pupil"></div>
+                </div>
+                
+                <!-- Nose (tap target) -->
+                <div class="sb-nose" id="sbNose"></div>
+                
+                <!-- Cheeks -->
+                <div class="sb-cheek left">
+                    <div class="freckle" style="top:5px;left:5px;"></div>
+                    <div class="freckle" style="top:8px;left:15px;"></div>
+                    <div class="freckle" style="top:5px;left:22px;"></div>
+                </div>
+                <div class="sb-cheek right">
+                    <div class="freckle" style="top:5px;right:5px;"></div>
+                    <div class="freckle" style="top:8px;right:15px;"></div>
+                    <div class="freckle" style="top:5px;right:22px;"></div>
+                </div>
+                
+                <!-- Mouth -->
+                <div class="sb-mouth"></div>
+            </div>
+            
+            <!-- Arms -->
+            <div class="sb-arm left">
+                <div class="sb-hand"></div>
+            </div>
+            <div class="sb-arm right">
+                <div class="sb-hand"></div>
+            </div>
+            
+            <!-- Pants -->
+            <div class="sb-pants">
+                <div class="sb-belt">
+                    <div class="belt-line"></div>
+                    <div class="belt-line"></div>
+                    <div class="belt-line"></div>
+                </div>
+            </div>
+            
+            <!-- Legs -->
+            <div class="sb-leg left">
+                <div class="sb-shoe"></div>
+            </div>
+            <div class="sb-leg right">
+                <div class="sb-shoe"></div>
+            </div>
+        </div>
+        
+        <div class="tap-hint">👆 Tap SpongeBob's nose to enter!</div>
     </div>
 
-    <!-- Floating Elements -->
-    <div id="bubbles"></div>
-    <div id="jellyfish"></div>
-    <div id="flowers"></div>
-
-    <!-- Pineapple House -->
-    <div class="pineapple">
-        <div class="pineapple-leaves">
-            <div class="leaf"></div>
-            <div class="leaf"></div>
-            <div class="leaf"></div>
-        </div>
-        <div class="pineapple-body">
-            <div class="pineapple-texture"></div>
-            <div class="window"></div>
-            <div class="door"></div>
-        </div>
-    </div>
-
-    <!-- Ground -->
-    <div class="ground"></div>
-
-    <!-- Main Content -->
-    <div class="container">
-        <h1>Hey Peris! 👋</h1>
-        <p class="subtitle">Welcome to your own little corner of Bikini Bottom...</p>
-
-        <div class="message-box">
-            <div class="emoji-rain">🧽⭐🍍🐙🦀</div>
-            <p class="cute-message">
-                Just like SpongeBob's pineapple house, <span class="highlight">you're one of a kind</span> — 
-                weirdly wonderful, impossibly bright, and full of surprises behind every window! 
-                If you were a Krabby Patty, you'd be the <span class="highlight">secret formula</span> itself.
-            </p>
+    <!-- ===== MAIN CONTENT (Hidden initially) ===== -->
+    <div id="mainContent">
+        <div class="music-control playing" id="musicBtn" onclick="toggleMusic()">
+            <span id="musicIcon">⏸️</span>
+            <span id="musicText">Playing...</span>
         </div>
 
-        <div class="message-box">
-            <div class="emoji-rain">🌈💖🫧🎸🐿️</div>
-            <p class="cute-message">
-                You're the <span class="highlight">Patrick to my SpongeBob</span> — 
-                the person who makes ordinary days feel like adventures. 
-                Whether we're jellyfishing, blowing bubbles, or just doing nothing under our rock, 
-                it's always better with you around. <br><br>
-                <em>"F is for friends who do stuff together!"</em>
-            </p>
-        </div>
+        <!-- Floating Elements -->
+        <div id="bubbles"></div>
+        <div id="jellyfish"></div>
+        <div id="flowers"></div>
 
-        <div class="message-box">
-            <div class="emoji-rain">🌟🦋🌸✨🎀</div>
-            <p class="cute-message">
-                If happiness had a face, it would probably look like you laughing at something dumb. 
-                You're proof that the best things in life aren't things — they're <span class="highlight">people like you</span>. 
-                Keep being your amazing, slightly chaotic, absolutely magical self! 
-            </p>
-        </div>
-
-        <div class="treasure">
-            <div class="final-message">
-                💛 You're My Favorite Notification 💛<br>
-                <span style="font-size: 0.7em; color: #fff;">
-                    (And yes, I'd share my Krabby Patty with you... that's real love)
-                </span>
+        <!-- Pineapple House -->
+        <div class="pineapple">
+            <div class="pineapple-leaves">
+                <div class="leaf"></div>
+                <div class="leaf"></div>
+                <div class="leaf"></div>
+            </div>
+            <div class="pineapple-body">
+                <div class="pineapple-texture"></div>
+                <div class="window"></div>
+                <div class="door"></div>
             </div>
         </div>
 
-        <div style="margin-top: 30px; font-size: 0.9em; opacity: 0.8;">
-            <p>Made with 🍍 and 💛 just for you</p>
-            <p style="margin-top: 10px; font-size: 1.5em;">🦀🐡🐠🐟🐬🐳🦈🐙🦑</p>
+        <!-- Ground -->
+        <div class="ground"></div>
+
+        <!-- Main Content -->
+        <div class="container">
+            <h1>Welcome to Bikini Bottom, Peris! 🍍</h1>
+            <p class="subtitle">SpongeBob let me borrow his pineapple house for this...</p>
+
+            <div class="message-box">
+                <div class="emoji-rain">🧽⭐🍍🐙🦀</div>
+                <p class="cute-message">
+                    Just like SpongeBob's pineapple house, <span class="highlight">you're one of a kind</span> — 
+                    weirdly wonderful, impossibly bright, and full of surprises behind every window! 
+                    If you were a Krabby Patty, you'd be the <span class="highlight">secret formula</span> itself.
+                </p>
+            </div>
+
+            <div class="message-box">
+                <div class="emoji-rain">🌈💖🫧🎸🐿️</div>
+                <p class="cute-message">
+                    You're the <span class="highlight">Patrick to my SpongeBob</span> — 
+                    the person who makes ordinary days feel like adventures. 
+                    Whether we're jellyfishing, blowing bubbles, or just doing nothing under our rock, 
+                    it's always better with you around. <br><br>
+                    <em>"F is for friends who do stuff together!"</em>
+                </p>
+            </div>
+
+            <div class="message-box">
+                <div class="emoji-rain">🌟🦋🌸✨🎀</div>
+                <p class="cute-message">
+                    If happiness had a face, it would probably look like you laughing at something dumb. 
+                    You're proof that the best things in life aren't things — they're <span class="highlight">people like you</span>. 
+                    Keep being your amazing, slightly chaotic, absolutely magical self! 
+                </p>
+            </div>
+
+            <div class="treasure">
+                <div class="final-message">
+                    💛 You're the Good in My Morning 💛<br>
+                    <span style="font-size: 0.7em; color: #fff;">
+                        (And yes, I'd share my Krabby Patty with you... that's real love)
+                    </span>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px; font-size: 0.9em; opacity: 0.8;">
+                <p>Made with 🍍 and 💛 just for you</p>
+                <p style="margin-size: 10px; font-size: 1.5em;">🦀🐡🐠🐟🐬🐳🦈🐙🦑</p>
+            </div>
         </div>
     </div>
 
     <script>
+        let isPlaying = false;
+        const music = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicBtn');
+        const musicIcon = document.getElementById('musicIcon');
+        const musicText = document.getElementById('musicText');
+
+        // ENTER SITE FUNCTION
+        function enterSite() {
+            const nose = document.getElementById('sbNose');
+            const gate = document.getElementById('gateScreen');
+            const main = document.getElementById('mainContent');
+            
+            // Animate nose
+            nose.classList.add('tapped');
+            
+            // Play music immediately
+            music.play().then(() => {
+                isPlaying = true;
+                if (musicBtn) {
+                    musicIcon.textContent = '⏸️';
+                    musicText.textContent = 'Playing...';
+                    musicBtn.classList.add('playing');
+                }
+            }).catch(e => {
+                console.log('Audio play failed:', e);
+            });
+            
+            // Transition out gate
+            setTimeout(() => {
+                gate.classList.add('hidden');
+                
+                // Show main content
+                setTimeout(() => {
+                    main.classList.add('visible');
+                    gate.style.display = 'none';
+                }, 800);
+            }, 600);
+        }
+
+        // Music toggle for main page
+        function toggleMusic() {
+            if (isPlaying) {
+                music.pause();
+                musicIcon.textContent = '🎵';
+                musicText.textContent = 'Play Music';
+                musicBtn.classList.remove('playing');
+            } else {
+                music.play();
+                musicIcon.textContent = '⏸️';
+                musicText.textContent = 'Playing...';
+                musicBtn.classList.add('playing');
+            }
+            isPlaying = !isPlaying;
+        }
+
         // Generate bubbles
         function createBubbles() {
             const container = document.getElementById('bubbles');
@@ -502,38 +1014,14 @@
             }
         }
 
-        // Music toggle
-        let isPlaying = false;
-        const music = document.getElementById('bgMusic');
-        const musicBtn = document.getElementById('musicBtn');
-        const musicIcon = document.getElementById('musicIcon');
-        const musicText = document.getElementById('musicText');
-
-        function toggleMusic() {
-            if (isPlaying) {
-                music.pause();
-                musicIcon.textContent = '🎵';
-                musicText.textContent = 'Play Music';
-                musicBtn.classList.remove('playing');
-            } else {
-                music.play().catch(e => {
-                    alert('Click again to start the music! 🎶');
-                });
-                musicIcon.textContent = '⏸️';
-                musicText.textContent = 'Pause Music';
-                musicBtn.classList.add('playing');
-            }
-            isPlaying = !isPlaying;
-        }
-
-        // Initialize
+        // Initialize main content elements
         createBubbles();
         createJellyfish();
         createFlowers();
 
-        // Add click sparkle effect
+        // Click sparkle effect
         document.addEventListener('click', function(e) {
-            if (e.target.closest('.music-control')) return;
+            if (e.target.closest('.music-control') || e.target.closest('#spongebobBtn')) return;
             
             const sparkle = document.createElement('div');
             sparkle.textContent = '✨';
@@ -549,7 +1037,7 @@
             setTimeout(() => sparkle.remove(), 1000);
         });
 
-        // Add fadeOut animation dynamically
+        // Add fadeOut animation
         const style = document.createElement('style');
         style.textContent = `
             @keyframes fadeOut {
