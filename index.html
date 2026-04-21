@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Peris 💛</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            overflow-x: hidden;
+            background: linear-gradient(180deg, #4facfe 0%, #00f2fe 30%, #0099cc 60%, #0066aa 100%);
+            min-height: 100vh;
+            font-family: 'Nunito', sans-serif;
+            position: relative;
+        }
+
+        /* Floating Bubbles */
+        .bubble {
+            position: fixed;
+            bottom: -100px;
+            background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.8), rgba(255,255,255,0.2));
+            border-radius: 50%;
+            animation: rise linear infinite;
+            z-index: 1;
+            box-shadow: inset -5px -5px 10px rgba(0,0,0,0.1);
+        }
+
+        @keyframes rise {
+            0% { transform: translateY(0) scale(1); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-120vh) scale(1.2); opacity: 0; }
+        }
+
+        /* Jellyfish */
+        .jellyfish {
+            position: fixed;
+            width: 60px;
+            height: 80px;
+            z-index: 2;
+            animation: swim 15s linear infinite;
+            opacity: 0.6;
+        }
+
+        .jellyfish-head {
+            width: 60px;
+            height: 40px;
+            background: linear-gradient(to bottom, #ff69b4, #ff1493);
+            border-radius: 50% 50% 20% 20%;
+            position: relative;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .jellyfish-tentacle {
+            width: 3px;
+            height: 30px;
+            background: linear-gradient(to bottom, #ff69b4, transparent);
+            position: absolute;
+            bottom: -25px;
+            border-radius: 50%;
+            animation: wiggle 1s ease-in-out infinite;
+        }
+
+        @keyframes swim {
+            0% { left: -100px; top: 20%; }
+            25% { top: 10%; }
+            50% { top: 30%; }
+            75% { top: 15%; }
+            100% { left: 110vw; top: 25%; }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scaleY(1); }
+            50% { transform: scaleY(0.8); }
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+
+        /* Pineapple House */
+        .pineapple {
+            position: fixed;
+            right: 5%;
+            bottom: 10%;
+            width: 200px;
+            height: 300px;
+            z-index: 2;
+            animation: bob 3s ease-in-out infinite;
+        }
+
+        .pineapple-body {
+            width: 180px;
+            height: 220px;
+            background: linear-gradient(135deg, #ffa500 0%, #ff8c00 50%, #ff6347 100%);
+            border-radius: 50% 50% 45% 45%;
+            position: relative;
+            box-shadow: inset -20px -20px 40px rgba(0,0,0,0.2), 0 10px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .pineapple-texture {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(45deg, transparent 48%, rgba(139,69,19,0.3) 49%, rgba(139,69,19,0.3) 51%, transparent 52%),
+                linear-gradient(-45deg, transparent 48%, rgba(139,69,19,0.3) 49%, rgba(139,69,19,0.3) 51%, transparent 52%);
+            background-size: 30px 30px;
+        }
+
+        .pineapple-leaves {
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 80px;
+        }
+
+        .leaf {
+            position: absolute;
+            width: 40px;
+            height: 80px;
+            background: linear-gradient(to top, #228b22, #32cd32);
+            border-radius: 50% 50% 0 0;
+            transform-origin: bottom center;
+        }
+
+        .leaf:nth-child(1) { transform: rotate(-30deg); left: 20px; }
+        .leaf:nth-child(2) { transform: rotate(0deg); left: 55px; height: 90px; }
+        .leaf:nth-child(3) { transform: rotate(30deg); left: 90px; }
+
+        .window {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: radial-gradient(circle, #87ceeb, #4682b4);
+            border-radius: 50%;
+            border: 4px solid #8b4513;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
+        }
+
+        .window::after {
+            content: '👀';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20px;
+        }
+
+        .door {
+            position: absolute;
+            width: 50px;
+            height: 70px;
+            background: #8b4513;
+            border-radius: 25px 25px 0 0;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 3px solid #654321;
+        }
+
+        @keyframes bob {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        /* Main Content */
+        .container {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 50px 20px;
+            text-align: center;
+            color: white;
+        }
+
+        h1 {
+            font-family: 'Fredoka One', cursive;
+            font-size: 3.5em;
+            color: #fff700;
+            text-shadow: 3px 3px 0px #ff6b6b, 6px 6px 0px rgba(0,0,0,0.2);
+            margin-bottom: 10px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            color: #b3e5fc;
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Message Cards */
+        .message-box {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 30px;
+            margin: 20px 0;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .message-box:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .emoji-rain {
+            font-size: 2em;
+            margin: 15px 0;
+        }
+
+        .cute-message {
+            font-size: 1.2em;
+            line-height: 1.6;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+
+        .highlight {
+            color: #fff700;
+            font-weight: bold;
+            font-family: 'Fredoka One', cursive;
+        }
+
+        /* SpongeBob Flower Clouds */
+        .flower-cloud {
+            position: fixed;
+            font-size: 4em;
+            opacity: 0.3;
+            z-index: 1;
+            animation: drift 20s linear infinite;
+        }
+
+        @keyframes drift {
+            0% { transform: translateX(-100px) rotate(0deg); }
+            100% { transform: translateX(100vw) rotate(360deg); }
+        }
+
+        /* Music Control */
+        .music-control {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.4);
+            border-radius: 50px;
+            padding: 10px 20px;
+            color: white;
+            cursor: pointer;
+            font-family: 'Fredoka One', cursive;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .music-control:hover {
+            background: rgba(255,255,255,0.4);
+            transform: scale(1.1);
+        }
+
+        .music-control.playing {
+            animation: pulse-glow 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 10px rgba(255,215,0,0.5); }
+            50% { box-shadow: 0 0 25px rgba(255,215,0,0.8); }
+        }
+
+        /* Hidden treasure */
+        .treasure {
+            margin-top: 50px;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(255,215,0,0.3), rgba(255,140,0,0.3));
+            border-radius: 30px;
+            border: 3px dashed #ffd700;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .treasure::before {
+            content: '⭐';
+            position: absolute;
+            font-size: 2em;
+            animation: sparkle 2s linear infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+            50% { opacity: 1; transform: scale(1.5) rotate(180deg); }
+        }
+
+        .final-message {
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.8em;
+            color: #fff700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 { font-size: 2.2em; }
+            .pineapple { width: 120px; height: 180px; right: 2%; }
+            .pineapple-body { width: 110px; height: 140px; }
+        }
+
+        /* Sandy ground */
+        .ground {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(to top, #f4a460, #deb887);
+            z-index: 5;
+            border-radius: 50% 50% 0 0 / 20px 20px 0 0;
+        }
+
+        .ground::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 20px,
+                rgba(139,69,19,0.1) 20px,
+                rgba(139,69,19,0.1) 22px
+            );
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Audio Player (SpongeBob Theme - you can change the src) -->
+    <audio id="bgMusic" loop>
+        <!-- Using a copyright-free alternative. Replace with your own MP3 if you have one! -->
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="music-control" id="musicBtn" onclick="toggleMusic()">
+        <span id="musicIcon">🎵</span>
+        <span id="musicText">Play Music</span>
+    </div>
+
+    <!-- Floating Elements -->
+    <div id="bubbles"></div>
+    <div id="jellyfish"></div>
+    <div id="flowers"></div>
+
+    <!-- Pineapple House -->
+    <div class="pineapple">
+        <div class="pineapple-leaves">
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+            <div class="leaf"></div>
+        </div>
+        <div class="pineapple-body">
+            <div class="pineapple-texture"></div>
+            <div class="window"></div>
+            <div class="door"></div>
+        </div>
+    </div>
+
+    <!-- Ground -->
+    <div class="ground"></div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Hey Peris! 👋</h1>
+        <p class="subtitle">Welcome to your own little corner of Bikini Bottom...</p>
+
+        <div class="message-box">
+            <div class="emoji-rain">🧽⭐🍍🐙🦀</div>
+            <p class="cute-message">
+                Just like SpongeBob's pineapple house, <span class="highlight">you're one of a kind</span> — 
+                weirdly wonderful, impossibly bright, and full of surprises behind every window! 
+                If you were a Krabby Patty, you'd be the <span class="highlight">secret formula</span> itself.
+            </p>
+        </div>
+
+        <div class="message-box">
+            <div class="emoji-rain">🌈💖🫧🎸🐿️</div>
+            <p class="cute-message">
+                You're the <span class="highlight">Patrick to my SpongeBob</span> — 
+                the person who makes ordinary days feel like adventures. 
+                Whether we're jellyfishing, blowing bubbles, or just doing nothing under our rock, 
+                it's always better with you around. <br><br>
+                <em>"F is for friends who do stuff together!"</em>
+            </p>
+        </div>
+
+        <div class="message-box">
+            <div class="emoji-rain">🌟🦋🌸✨🎀</div>
+            <p class="cute-message">
+                If happiness had a face, it would probably look like you laughing at something dumb. 
+                You're proof that the best things in life aren't things — they're <span class="highlight">people like you</span>. 
+                Keep being your amazing, slightly chaotic, absolutely magical self! 
+            </p>
+        </div>
+
+        <div class="treasure">
+            <div class="final-message">
+                💛 You're My Favorite Notification 💛<br>
+                <span style="font-size: 0.7em; color: #fff;">
+                    (And yes, I'd share my Krabby Patty with you... that's real love)
+                </span>
+            </div>
+        </div>
+
+        <div style="margin-top: 30px; font-size: 0.9em; opacity: 0.8;">
+            <p>Made with 🍍 and 💛 just for you</p>
+            <p style="margin-top: 10px; font-size: 1.5em;">🦀🐡🐠🐟🐬🐳🦈🐙🦑</p>
+        </div>
+    </div>
+
+    <script>
+        // Generate bubbles
+        function createBubbles() {
+            const container = document.getElementById('bubbles');
+            for (let i = 0; i < 15; i++) {
+                const bubble = document.createElement('div');
+                bubble.className = 'bubble';
+                const size = Math.random() * 60 + 20;
+                bubble.style.width = size + 'px';
+                bubble.style.height = size + 'px';
+                bubble.style.left = Math.random() * 100 + 'vw';
+                bubble.style.animationDuration = (Math.random() * 10 + 8) + 's';
+                bubble.style.animationDelay = Math.random() * 10 + 's';
+                container.appendChild(bubble);
+            }
+        }
+
+        // Generate jellyfish
+        function createJellyfish() {
+            const container = document.getElementById('jellyfish');
+            for (let i = 0; i < 3; i++) {
+                const jelly = document.createElement('div');
+                jelly.className = 'jellyfish';
+                jelly.style.top = (Math.random() * 60 + 10) + '%';
+                jelly.style.animationDelay = (i * 5) + 's';
+                jelly.style.animationDuration = (12 + Math.random() * 8) + 's';
+                
+                const head = document.createElement('div');
+                head.className = 'jellyfish-head';
+                
+                for (let j = 0; j < 4; j++) {
+                    const tentacle = document.createElement('div');
+                    tentacle.className = 'jellyfish-tentacle';
+                    tentacle.style.left = (15 + j * 12) + 'px';
+                    tentacle.style.animationDelay = (j * 0.2) + 's';
+                    head.appendChild(tentacle);
+                }
+                
+                jelly.appendChild(head);
+                container.appendChild(jelly);
+            }
+        }
+
+        // Generate flower clouds
+        function createFlowers() {
+            const container = document.getElementById('flowers');
+            const flowerEmojis = ['🌸', '🌺', '🌼', '🏵️'];
+            for (let i = 0; i < 5; i++) {
+                const flower = document.createElement('div');
+                flower.className = 'flower-cloud';
+                flower.textContent = flowerEmojis[i % flowerEmojis.length];
+                flower.style.top = (Math.random() * 80) + '%';
+                flower.style.animationDuration = (25 + Math.random() * 20) + 's';
+                flower.style.animationDelay = (i * 5) + 's';
+                container.appendChild(flower);
+            }
+        }
+
+        // Music toggle
+        let isPlaying = false;
+        const music = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicBtn');
+        const musicIcon = document.getElementById('musicIcon');
+        const musicText = document.getElementById('musicText');
+
+        function toggleMusic() {
+            if (isPlaying) {
+                music.pause();
+                musicIcon.textContent = '🎵';
+                musicText.textContent = 'Play Music';
+                musicBtn.classList.remove('playing');
+            } else {
+                music.play().catch(e => {
+                    alert('Click again to start the music! 🎶');
+                });
+                musicIcon.textContent = '⏸️';
+                musicText.textContent = 'Pause Music';
+                musicBtn.classList.add('playing');
+            }
+            isPlaying = !isPlaying;
+        }
+
+        // Initialize
+        createBubbles();
+        createJellyfish();
+        createFlowers();
+
+        // Add click sparkle effect
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.music-control')) return;
+            
+            const sparkle = document.createElement('div');
+            sparkle.textContent = '✨';
+            sparkle.style.position = 'fixed';
+            sparkle.style.left = e.clientX + 'px';
+            sparkle.style.top = e.clientY + 'px';
+            sparkle.style.fontSize = '2em';
+            sparkle.style.pointerEvents = 'none';
+            sparkle.style.zIndex = '9999';
+            sparkle.style.animation = 'fadeOut 1s forwards';
+            document.body.appendChild(sparkle);
+            
+            setTimeout(() => sparkle.remove(), 1000);
+        });
+
+        // Add fadeOut animation dynamically
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeOut {
+                0% { transform: scale(0) rotate(0deg); opacity: 1; }
+                100% { transform: scale(2) rotate(180deg); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
